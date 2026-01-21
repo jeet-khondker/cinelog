@@ -1,0 +1,17 @@
+:root {
+  background-color: #1a1b1e; /* 深いダークグレー */
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 映画ポスターなどの画像にホバーエフェクトを追加する共通クラス */
+.movie-card-hover {
+  transition: transform 0.2s ease;
+}
+
+.movie-card-hover:hover {
+  transform: scale(1.03);
+}
