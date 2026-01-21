@@ -1,0 +1,63 @@
+### 1. ユーザー登録（ここでメールが送信されます）
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email": "test-user@example.com",
+  "password": "password123",
+  "name": "Tanaka Taro"
+}
+
+### 2. ログイン（トークンを取得します）
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "test-user@example.com",
+  "password": "new-password-789"
+}
+
+### 3. パスワードリセット要求（メールを送る）
+POST http://localhost:3000/auth/forgot-password
+Content-Type: application/json
+
+{
+  "email": "test-user@example.com"
+}
+
+### 4. パスワード再設定（メールの中のtokenをここに貼り付ける）
+POST http://localhost:3000/auth/reset-password
+Content-Type: application/json
+
+{
+  "token": "86d5bb30-b2d4-43ea-b9ca-7b213b55ba5b",
+  "newPassword": "new-password-789"
+}
+
+### 映画検索 (Star Wars で検索)
+GET http://localhost:3000/movies/search?title=Star%20Wars
+
+### 映画詳細 (上で取得した imdbID を使う)
+GET http://localhost:3000/movies/detail?id=tt0076759
+
+### お気に入りから削除
+DELETE http://localhost:3000/favorites/clear-all
+Authorization: Bearer トーケーン
+
+### ログインしてトークンを取得（既存のテストを実行してトークンをコピーしてください）
+
+### お気に入りに追加
+POST http://localhost:3000/favorites
+Content-Type: application/json
+Authorization: Bearer トーケーン
+
+{
+  "imdbID": "tt0076759",
+  "title": "Star Wars: Episode IV - A New Hope",
+  "poster": "https://m.media-amazon.com/images/M/MV5BOTA5NjM2YmUtNjkyOC00Y2E3LWFkOWYtMmQyMGVhNGU0NjkzXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
+}
+
+### お気に入り一覧を取得
+GET http://localhost:3000/favorites
+Authorization: Bearer トーケーン
+

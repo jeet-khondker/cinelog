@@ -1,0 +1,47 @@
+// backend/prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ユーザーモデル
+model User {
+  id                String     @id @default(uuid())
+  email             String     @unique
+  password          String
+  name              String?
+  resetToken        String?
+  resetTokenExpires DateTime?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  favorites         Favorite[] // UserからFavoriteへのリレーション
+}
+
+model Movie {
+  id        String     @id @default(uuid())
+  imdbID    String     @unique // OMDbのIDを保存
+  title     String
+  year      String
+  poster    String?
+  favorites Favorite[]
+}
+
+// お気に入りモデル（ここに必要な情報を集約します）
+model Favorite {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  imdbID    String // OMDb APIの映画ID
+  title     String // 映画のタイトル
+  poster    String? // ポスターのURL
+  createdAt DateTime @default(now())
+  movie     Movie?   @relation(fields: [movieId], references: [id])
+  movieId   String?
+
+  @@unique([userId, imdbID]) // 同じユーザーが同じ映画を二重登録できないようにする
+}
