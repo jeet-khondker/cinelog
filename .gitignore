@@ -1,0 +1,13 @@
+# APIキー、Secrets
+.env
+
+# Dependencies
+node_modules/
+
+# OSファイル
+.DS_Store
+Thumbs.db
+
+# ビルドファイル
+dist/
+build/
